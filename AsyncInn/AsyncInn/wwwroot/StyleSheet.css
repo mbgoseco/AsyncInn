@@ -1,0 +1,89 @@
+﻿body {
+    background: url(/HotelBG.jpg);
+    background-size: cover;
+    text-align: center;
+}
+
+header {
+    width: 30vw;
+    height: 20vh;
+    background-color: rgba(0,0,0,0.5);
+    font-family: Tahoma;
+    font-size: 5rem;
+    color: azure;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#dbLinks {
+    width: 100vw;
+    height: 11vh;
+    background-color: rgba(0,0,0,0.5);
+    font-family: 'Trebuchet MS';
+    font-size: 3rem;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#dbLinks > a {
+    position: relative;
+    top: 4vh;
+    color: white;
+    text-decoration: none;
+    border: 0.5vw outset gray;
+}
+
+a:hover {
+    background-color: goldenrod;
+    color: black;
+}
+
+#info {
+    font-family: 'Trebuchet MS';
+    background-color: rgba(0,0,0,0.5);
+    color: azure;
+    font-size: 2rem;
+}
+
+#layout {
+    background-color: rgba(0,0,0,0.5);
+    font-family: Verdana;
+    font-size: 2rem;
+    color: azure;
+}
+
+p, h1 {
+    height: 5vh;
+}
+
+#layout > div {
+    height: 30vh;
+}
+
+p > a {
+    color: white;
+    text-decoration: none;
+    border: 0.5vw outset gray;
+    margin: 2vw;
+}
+
+div > a {
+    position: relative;
+    top: 4vh;
+    color: white;
+    text-decoration: none;
+    border: 0.5vw outset gray;
+    margin: 2vw;
+}
+
+table, thead, tbody, th, tr, td {
+    border-collapse: collapse;
+    background-color: aliceblue;
+    font-family: Verdana;
+    color: black;
+    font-size: 1em;
+    border: 3px ridge gray;
+    padding: 1px;
+    margin-left: auto;
+    margin-right: auto;
+}
