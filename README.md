@@ -6,4 +6,4 @@ Users will be redirected to the hotel database home page. From there, a navigati
 
 ## Screenshots
 ![home](https://github.com/mbgoseco/AsyncInn/blob/master/assets/home.PNG)
-![database](https://github.com/mbgoseco/AsyncInn/blob/master/assets/home.PNG)
+![database](https://github.com/mbgoseco/AsyncInn/blob/master/assets/database.PNG)
