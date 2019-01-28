@@ -5,5 +5,5 @@ Welcome to the Async Inn! This is a work in progress of a front and back end hot
 Users will be redirected to the hotel database home page. From there, a navigation bar directs you to the different database tables that you can view and edit.
 
 ## Screenshots
-![home]()
-![database]()
+![home](https://github.com/mbgoseco/AsyncInn/blob/master/assets/home.PNG)
+![database](https://github.com/mbgoseco/AsyncInn/blob/master/assets/home.PNG)
