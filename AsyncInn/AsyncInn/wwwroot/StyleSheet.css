@@ -30,7 +30,8 @@ header {
     top: 4vh;
     color: white;
     text-decoration: none;
-    border: 0.5vw outset gray;
+    border: 0.3vw outset gray;
+    transition: linear 0.25s;
 }
 
 a:hover {
@@ -57,14 +58,23 @@ p, h1 {
 }
 
 #layout > div {
-    height: 30vh;
+    height: 50vh;
 }
 
 p > a {
     color: white;
     text-decoration: none;
-    border: 0.5vw outset gray;
+    border: 0.3vw outset gray;
     margin: 2vw;
+    transition: linear 0.25s;
+}
+
+form > a {
+    color: white;
+    text-decoration: none;
+    border: 0.3vw outset gray;
+    margin: 2vw;
+    transition: linear 0.25s;
 }
 
 div > a {
@@ -72,18 +82,41 @@ div > a {
     top: 4vh;
     color: white;
     text-decoration: none;
-    border: 0.5vw outset gray;
+    border: 0.3vw outset gray;
     margin: 2vw;
+    transition: linear 0.25s;
 }
 
-table, thead, tbody, th, tr, td {
-    border-collapse: collapse;
-    background-color: aliceblue;
-    font-family: Verdana;
+input[type="submit"] {
+    color: white;
+    text-decoration: none;
+    border: 0.3vw outset gray;
+    background-color: rgba(0,0,0,0.5);
+    font-family: 'Trebuchet MS';
+    font-size: 2rem;
+    margin: 2vw;
+    transition: linear 0.25s;
+}
+
+input[type="submit"]:hover {
+    background-color: goldenrod;
     color: black;
-    font-size: 1em;
-    border: 3px ridge gray;
-    padding: 1px;
+}
+
+table {
+    border-collapse: collapse;
     margin-left: auto;
     margin-right: auto;
+}
+
+thead, tbody, th, tr, td {
+    background-color: lightsteelblue;
+    font-family: Verdana;
+    color: rgb(35, 35, 35);
+    font-size: 1em;
+    border: 4px ridge gray;
+}
+
+th, tr, td {
+    padding: 8px;
 }
