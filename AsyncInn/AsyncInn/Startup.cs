@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AsyncInn.Data;
+using AsyncInn.Models.Interfaces;
+using AsyncInn.Models.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -24,12 +26,14 @@ namespace AsyncInn
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
-            //services.AddScoped<INTERFACE, SERVICE>();
 
             services.AddDbContext<AsyncInnDbContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))
-            
             );
+
+            services.AddScoped<IHotel, HotelManagementService>();
+            services.AddScoped<IRoom, RoomManagementService>();
+            services.AddScoped<IAmenities, AmenitiesManagementService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
