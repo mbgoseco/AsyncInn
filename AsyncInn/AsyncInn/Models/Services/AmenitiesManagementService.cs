@@ -33,16 +33,17 @@ namespace AsyncInn.Models.Services
             return await _context.Amenities.ToListAsync();
         }
 
-        public void UpdateAmenities(Amenities amenities)
+        public async Task UpdateAmenities(Amenities amenities)
         {
             _context.Amenities.Update(amenities);
+            await _context.SaveChangesAsync();
         }
 
-        public void DeleteAmenities(int id)
+        public async Task DeleteAmenities(int id)
         {
             Amenities amenities = _context.Amenities.FirstOrDefault(a => a.ID == id);
             _context.Amenities.Remove(amenities);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
     }
 }
