@@ -24,6 +24,7 @@ namespace AsyncInn
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+            //services.AddScoped<INTERFACE, SERVICE>();
 
             services.AddDbContext<AsyncInnDbContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))
