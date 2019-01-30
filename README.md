@@ -3,7 +3,7 @@ Welcome to the Async Inn! This is a work in progress of a front and back end hot
 
 ## Database
 ![schema]((https://github.com/mbgoseco/AsyncInn/blob/master/assets/SchemaAsyncInn.png)
-- The relational database consists of five tables, three of them joined tables. The contents of which are as follows.
+- The relational database consists of five tables, three of them joined tables. The contents of which are as follows:
 
 Hotels
 - ID: Primary Key
