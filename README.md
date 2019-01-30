@@ -32,7 +32,7 @@ RoomAmenities
 - RoomID (Composite Key): Reference to a particular room design and its associated amenities.
 
 ## Changes
-- 1/29/2019 - Dependency Injection implemented as a middleware repository between the database and the web app for Hotels, Rooms, and Amenities.
+- 1/29/2019 - Dependency Injection implemented as a middleware repository between the database and the web app for Hotels, Rooms, and Amenities. CRUD operations for HotelRooms and RoomAmenities tables fixed.
 
 ## Directions
 Users will be redirected to the hotel database home page. From there, a navigation bar directs you to the different database tables that you can access. Each link begins with a view of the entire table with options to create, edit, delete, or view details of each entry.
