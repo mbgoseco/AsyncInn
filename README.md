@@ -48,4 +48,3 @@ Edit
 ![edit](https://github.com/mbgoseco/AsyncInn/blob/master/assets/edit.PNG)
 Delete
 ![delete](https://github.com/mbgoseco/AsyncInn/blob/master/assets/delete.PNG)
-
