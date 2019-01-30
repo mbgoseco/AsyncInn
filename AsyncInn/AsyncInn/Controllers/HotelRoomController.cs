@@ -22,7 +22,7 @@ namespace AsyncInn.Controllers
         // GET: HotelRoom
         public async Task<IActionResult> Index()
         {
-            var asyncInnDbContext = _context.HotelRooms.Include(h => h.Hotel);
+            var asyncInnDbContext = _context.HotelRooms.Include(h => h.Hotel).Include(r =>  r.Room);
             return View(await asyncInnDbContext.ToListAsync());
         }
 

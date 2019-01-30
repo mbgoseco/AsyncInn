@@ -33,9 +33,9 @@
                 @Html.DisplayFor(modelItem => item.Rooms.Name)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { item.RoomID }); |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }); |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ });
+                @Html.ActionLink("Edit", "Edit", new { item.AmenitiesID, item.RoomID }) |
+                @Html.ActionLink("Details", "Details", new { item.AmenitiesID, item.RoomID }) |
+                @Html.ActionLink("Delete", "Delete", new { item.AmenitiesID, item.RoomID })
             </td>
         </tr>
 }
