@@ -43,9 +43,8 @@ Home
 View
 ![database](https://github.com/mbgoseco/AsyncInn/blob/master/assets/database.PNG)
 Create
-![create](https://github.com/mbgoseco/AsyncInn/blob/master/assets/database.PNG)
+![create](https://github.com/mbgoseco/AsyncInn/blob/master/assets/create.PNG)
 Edit
-![edit](https://github.com/mbgoseco/AsyncInn/blob/master/assets/database.PNG)
+![edit](https://github.com/mbgoseco/AsyncInn/blob/master/assets/edit.PNG)
 Delete
-![delete](https://github.com/mbgoseco/AsyncInn/blob/master/assets/database.PNG)
-
+![delete](https://github.com/mbgoseco/AsyncInn/blob/master/assets/delete.PNG)
