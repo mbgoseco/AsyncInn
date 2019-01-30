@@ -3,13 +3,13 @@ Welcome to the Async Inn! This is a work in progress of a front and back end hot
 
 ## Database
 ![schema]((https://github.com/mbgoseco/AsyncInn/blob/master/assets/SchemaAsyncInn.png)
-The relational database consists of five tables, three of them joined tables. The contents of which are as follows.
-- Hotels
-ID: Primary Key
-Name: Name of each hotel.
-Address: Address of each hotel.
-Phone: Phone number of each hotel.
-- Room
+- The relational database consists of five tables, three of them joined tables. The contents of which are as follows.
+Hotels
+- ID: Primary Key
+- Name: Name of each hotel.
+- Address: Address of each hotel.
+- Phone: Phone number of each hotel.
+Room
 -- ID: Primary Key
 -- Name: The name associated to a particular room design.
 -- Layout (enum List) - Types of floor plans. Can be studio, one bedroom, or two bedroom.
