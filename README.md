@@ -4,25 +4,25 @@ Welcome to the Async Inn! This is a work in progress of a front and back end hot
 ## Database
 ![schema]((https://github.com/mbgoseco/AsyncInn/blob/master/assets/SchemaAsyncInn.png)
 The relational database consists of five tables, three of them joined tables. The contents of which are as follows.
-Hotels:
+Hotels
 - ID: Primary Key
 - Name: Name of each hotel.
 - Address: Address of each hotel.
 - Phone: Phone number of each hotel.
-Room:
+Room
 - ID: Primary Key
 - Name: The name associated to a particular room design.
 - Layout (enum List) - Types of floor plans. Can be studio, one bedroom, or two bedroom.
-HotelRoom:
+HotelRoom
 - HotelID (Composite Key): Associates different designs of rooms to a single hotel.
 - RoomNumber (Composite Key): Associates a room number to many types of room designs.
 - RoomID (Foreign Key): A unique identifier linked to the ID of the Room table.
 - Rate: Price per day of each room.
 - Pet Friendly: A boolean flag for whether or not a room is pet friendly.
-Amenities:
+Amenities
 - ID: Primary Key
 - Name: The name of a room amenity.
-RoomAmenities:
+RoomAmenities
 - AmenitiesID (Composite Key): The list of amenities a particular room can have.
 - RoomID (Composite Key): Reference to a particular room design and its associated amenities.
 
