@@ -10,9 +10,9 @@ Name: Name of each hotel.
 Address: Address of each hotel.
 Phone: Phone number of each hotel.
 - Room
-ID: Primary Key
-Name: The name associated to a particular room design.
-Layout (enum List) - Types of floor plans. Can be studio, one bedroom, or two bedroom.
+-- ID: Primary Key
+-- Name: The name associated to a particular room design.
+-- Layout (enum List) - Types of floor plans. Can be studio, one bedroom, or two bedroom.
 - HotelRoom
 HotelID (Composite Key): Associates different designs of rooms to a single hotel.
 RoomNumber (Composite Key): Associates a room number to many types of room designs.
