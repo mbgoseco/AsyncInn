@@ -26,7 +26,7 @@ namespace AsyncInn.Data
                     ID = 1,
                     Name = "Async Inn",
                     Address = "123 Main St",
-                    Phone = "555-867-5309"
+                    Phone = "555-867-5309",
                 },
                 new Hotel
                 {
