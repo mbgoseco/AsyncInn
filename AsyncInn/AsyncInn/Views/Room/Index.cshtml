@@ -7,6 +7,7 @@
 }
 
 <h1>Index</h1>
+<h1>Total Rooms: @Html.ViewData.Model.Where(r => r.Name != null).Count()</h1>
 
 <form asp-controller="Room" asp-action="Index">
     <p>

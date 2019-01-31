@@ -28,9 +28,17 @@ namespace AsyncInn.Models.Services
             return await _context.Rooms.FirstOrDefaultAsync(room => room.ID == id);
         }
 
-        public async Task<IEnumerable<Room>> GetRooms()
+        public async Task<IEnumerable<Room>> GetRooms(string searchRooms)
         {
-            return await _context.Rooms.ToListAsync();
+            var rooms = from m in _context.Rooms
+                         select m;
+
+            if (!String.IsNullOrEmpty(searchRooms))
+            {
+                rooms = rooms.Where(r => r.Name.Contains(searchRooms));
+            }
+
+            return await rooms.ToListAsync();
         }
 
         public async Task UpdateRoom(Room room)

@@ -13,7 +13,7 @@ namespace AsyncInn.Models.Interfaces
         // Read Amenities
         Task<Amenities> GetAmenities(int id);
 
-        Task<IEnumerable<Amenities>> GetAmenities();
+        Task<IEnumerable<Amenities>> GetAmenities(string searchAmenities);
 
         // Update Amenities
         Task UpdateAmenities(Amenities Amenities);

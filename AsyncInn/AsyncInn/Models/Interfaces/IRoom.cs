@@ -13,7 +13,7 @@ namespace AsyncInn.Models.Interfaces
         // Read Room
         Task<Room> GetRoom(int id);
 
-        Task<IEnumerable<Room>> GetRooms();
+        Task<IEnumerable<Room>> GetRooms(string searchRooms);
 
         // Update Room
         Task UpdateRoom(Room Room);

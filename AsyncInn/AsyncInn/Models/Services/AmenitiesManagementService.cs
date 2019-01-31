@@ -28,9 +28,17 @@ namespace AsyncInn.Models.Services
             return await _context.Amenities.FirstOrDefaultAsync(amenities => amenities.ID == id);
         }
 
-        public async Task<IEnumerable<Amenities>> GetAmenities()
+        public async Task<IEnumerable<Amenities>> GetAmenities(string searchAmenities)
         {
-            return await _context.Amenities.ToListAsync();
+            var amenities = from s in _context.Amenities
+                         select s;
+
+            if (!String.IsNullOrEmpty(searchAmenities))
+            {
+                amenities = amenities.Where(a => a.Name.Contains(searchAmenities));
+            }
+
+            return await amenities.ToListAsync();
         }
 
         public async Task UpdateAmenities(Amenities amenities)
