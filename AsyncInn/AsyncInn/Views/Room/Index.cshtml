@@ -8,6 +8,13 @@
 
 <h1>Index</h1>
 
+<form asp-controller="Room" asp-action="Index">
+    <p>
+        Filter Rooms by Name: <input type="text" name="searchRooms">
+        <input type="submit" value="Filter" />
+    </p>
+</form>
+
 <p>
     <a asp-action="Create">Create New</a>
 </p>

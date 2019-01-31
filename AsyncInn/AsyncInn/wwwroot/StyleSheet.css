@@ -139,3 +139,7 @@ div > .row > .col-sm-10 {
     border-bottom: 4px ridge gray;
     margin: 0;
 }
+
+form[action] {
+    height: 10vh;
+}

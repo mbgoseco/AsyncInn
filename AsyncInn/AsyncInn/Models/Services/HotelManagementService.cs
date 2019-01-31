@@ -28,9 +28,17 @@ namespace AsyncInn.Models.Services
             return await _context.Hotels.FirstOrDefaultAsync(hotel => hotel.ID == id);
         }
 
-        public async Task<IEnumerable<Hotel>> GetHotels()
+        public async Task<IEnumerable<Hotel>> GetHotels(string searchHotels)
         {
-            return await _context.Hotels.ToListAsync();
+            var hotels = from h in _context.Hotels
+                         select h;
+
+            if (!String.IsNullOrEmpty(searchHotels))
+            {
+                hotels = hotels.Where(s => s.Name.Contains(searchHotels));
+            }
+
+            return await hotels.ToListAsync();
         }
 
         public async Task UpdateHotel(Hotel hotel)
