@@ -8,6 +8,13 @@
 
 <h1>Index</h1>
 
+<form asp-controller="Amenities" asp-action="Index">
+    <p>
+        Filter Amenities by Name: <input type="text" name="searchAmenities">
+        <input type="submit" value="Filter" />
+    </p>
+</form>
+
 <p>
     <a asp-action="Create">Create New</a>
 </p>
