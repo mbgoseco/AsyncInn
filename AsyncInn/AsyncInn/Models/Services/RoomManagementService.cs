@@ -25,7 +25,11 @@ namespace AsyncInn.Models.Services
 
         public async Task<Room> GetRoom(int id)
         {
-            return await _context.Rooms.FirstOrDefaultAsync(room => room.ID == id);
+            var rooms = await _context.Rooms.FirstOrDefaultAsync(room => room.ID == id);
+
+            rooms.RoomID = await _context.RoomAmenities.Where(a => a.RoomID == rooms.ID).ToListAsync();
+
+            return rooms;
         }
 
         public async Task<IEnumerable<Room>> GetRooms(string searchRooms)
@@ -36,6 +40,11 @@ namespace AsyncInn.Models.Services
             if (!String.IsNullOrEmpty(searchRooms))
             {
                 rooms = rooms.Where(r => r.Name.Contains(searchRooms));
+            }
+
+            foreach (Room room in rooms)
+            {
+                room.RoomID = await _context.RoomAmenities.Where(a => a.RoomID == room.ID).ToListAsync();
             }
 
             return await rooms.ToListAsync();

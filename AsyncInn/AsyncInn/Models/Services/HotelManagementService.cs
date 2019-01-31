@@ -25,7 +25,11 @@ namespace AsyncInn.Models.Services
         
         public async Task<Hotel> GetHotel(int id)
         {
-            return await _context.Hotels.FirstOrDefaultAsync(hotel => hotel.ID == id);
+            var hotels = await _context.Hotels.FirstOrDefaultAsync(hotel => hotel.ID == id);
+
+            hotels.Rooms = await _context.HotelRooms.Where(r => r.HotelID == hotels.ID).ToListAsync();
+
+            return hotels;
         }
 
         public async Task<IEnumerable<Hotel>> GetHotels(string searchHotels)
@@ -36,6 +40,11 @@ namespace AsyncInn.Models.Services
             if (!String.IsNullOrEmpty(searchHotels))
             {
                 hotels = hotels.Where(s => s.Name.Contains(searchHotels));
+            }
+
+            foreach (Hotel hotel in hotels)
+            {
+                hotel.Rooms = await _context.HotelRooms.Where(r => r.HotelID == hotel.ID).ToListAsync();
             }
 
             return await hotels.ToListAsync();
