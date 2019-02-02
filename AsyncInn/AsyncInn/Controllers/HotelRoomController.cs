@@ -27,7 +27,7 @@ namespace AsyncInn.Controllers
         }
 
         // GET: HotelRoom/Details/5
-        public async Task<IActionResult> Details(decimal? roomId, int? hotelId)
+        public async Task<IActionResult> Details(int? roomId, int? hotelId)
         {
             if (hotelId == null || roomId == null)
             {
@@ -49,6 +49,7 @@ namespace AsyncInn.Controllers
         public IActionResult Create()
         {
             ViewData["HotelID"] = new SelectList(_context.Hotels, "ID", "Name");
+            ViewData["RoomID"] = new SelectList(_context.Rooms, "ID", "Name");
             return View();
         }
 
@@ -65,12 +66,14 @@ namespace AsyncInn.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+
+            ViewData["RoomID"] = new SelectList(_context.Rooms, "ID", "Name", hotelRoom.RoomID);
             ViewData["HotelID"] = new SelectList(_context.Hotels, "ID", "Name", hotelRoom.HotelID);
             return View(hotelRoom);
         }
 
         // GET: HotelRoom/Edit/5
-        public async Task<IActionResult> Edit(decimal? roomId, int? hotelId)
+        public async Task<IActionResult> Edit(int? roomId, int? hotelId)
         {
             if (roomId == null || hotelId == null)
             {
@@ -94,7 +97,7 @@ namespace AsyncInn.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(decimal roomId, int hotelId, [Bind("HotelID,RoomNumberID,RoomID,Rate,PetFriendly")] HotelRoom hotelRoom)
+        public async Task<IActionResult> Edit(int roomId, int hotelId, [Bind("HotelID,RoomNumberID,RoomID,Rate,PetFriendly")] HotelRoom hotelRoom)
         {
             if (hotelId != hotelRoom.HotelID || roomId != hotelRoom.RoomID)
             {
@@ -127,7 +130,7 @@ namespace AsyncInn.Controllers
         }
 
         // GET: HotelRoom/Delete/5
-        public async Task<IActionResult> Delete(decimal? roomId, int? hotelId)
+        public async Task<IActionResult> Delete(int? roomId, int? hotelId)
         {
             if (roomId == null || hotelId == null)
             {
@@ -148,7 +151,7 @@ namespace AsyncInn.Controllers
         // POST: HotelRoom/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(decimal roomId, int hotelId)
+        public async Task<IActionResult> DeleteConfirmed(int roomId, int hotelId)
         {
             var hotelRoom = await _context.HotelRooms.Include(h => h.Hotel)
                 .Include(r => r.Room)
@@ -158,7 +161,7 @@ namespace AsyncInn.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        private bool HotelRoomExists(decimal roomId, int hotelId)
+        private bool HotelRoomExists(int roomId, int hotelId)
         {
             return _context.HotelRooms.Any(e => e.HotelID == hotelId && e.RoomID == roomId);
         }

@@ -17,6 +17,11 @@ namespace AsyncInn.Models.Services
             _context = context;
         }
 
+        /// <summary>
+        /// Calls the Add method from Entity Framework to add the given form data to the Hotel database.
+        /// </summary>
+        /// <param name="hotel">Form data passed in from the Create view</param>
+        /// <returns>New row to the Hotel table of the database</returns>
         public async Task CreateHotel(Hotel hotel)
         {
             _context.Hotels.Add(hotel);
