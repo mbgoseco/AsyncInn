@@ -60,6 +60,21 @@ namespace AsyncInn.Models.Services
         {
             Room room = _context.Rooms.FirstOrDefault(r => r.ID == id);
             _context.Rooms.Remove(room);
+
+            List<HotelRoom> roomTemplate = _context.HotelRooms.Where(r => r.Room.Name == room.Name).ToList();
+
+            foreach (HotelRoom template in roomTemplate)
+            {
+                _context.HotelRooms.Remove(template);
+            }
+
+            List<RoomAmenities> roomAmens = _context.RoomAmenities.Where(a => a.Rooms.Name == room.Name).ToList();
+
+            foreach (RoomAmenities template in roomAmens)
+            {
+                _context.RoomAmenities.Remove(template);
+            }
+
             await _context.SaveChangesAsync();
         }
     }

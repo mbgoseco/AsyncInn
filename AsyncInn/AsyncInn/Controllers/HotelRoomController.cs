@@ -92,8 +92,17 @@ namespace AsyncInn.Controllers
         }
 
         // GET: HotelRoom/Edit/5
-        public async Task<IActionResult> Edit(int? roomNumberId, int? hotelId)
+        public async Task<IActionResult> Edit(int? roomNumberId, int? hotelId, bool isDuplicate)
         {
+            if (isDuplicate)
+            {
+                ViewData["errorMsg"] = "This room number already exists at this hotel. Please enter another.";
+            }
+            else
+            {
+                ViewData["errorMsg"] = "";
+            }
+
             if (roomNumberId == null || hotelId == null)
             {
                 return NotFound();
