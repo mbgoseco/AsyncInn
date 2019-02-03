@@ -29,6 +29,7 @@
             <th>
                 Room Number
             </th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -50,9 +51,9 @@
                 @Html.DisplayFor(modelItem => item.RoomNumberID)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { item.RoomID, item.HotelID }) |
-                @Html.ActionLink("Details", "Details", new { item.RoomID, item.HotelID }) |
-                @Html.ActionLink("Delete", "Delete", new { item.RoomID, item.HotelID })
+                @Html.ActionLink("Edit", "Edit", new { item.RoomNumberID, item.HotelID }) |
+                @Html.ActionLink("Details", "Details", new { item.RoomNumberID, item.HotelID }) |
+                @Html.ActionLink("Delete", "Delete", new { item.RoomNumberID, item.HotelID })
             </td>
         </tr>
 }

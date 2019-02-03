@@ -70,6 +70,13 @@ namespace AsyncInn.Models.Services
         {
             Hotel hotel = _context.Hotels.FirstOrDefault(h => h.ID == id);
             _context.Hotels.Remove(hotel);
+
+            List<HotelRoom> rooms = _context.HotelRooms.Where(r => r.HotelID == hotel.ID).ToList();
+            foreach(HotelRoom room in rooms)
+            {
+                _context.HotelRooms.Remove(room);
+            }
+
             await _context.SaveChangesAsync();
         }
     }
