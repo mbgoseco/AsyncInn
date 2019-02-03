@@ -18,21 +18,21 @@ namespace AsyncInn.Models.Services
         }
 
         /// <summary>
-        /// Calls the Add method from Entity Framework to add the given form data to the Hotel database.
+        /// Takes in data from the Create view form which was validated through the controller and creates a new Hotel entry in the table.
         /// </summary>
         /// <param name="hotel">Form data passed in from the Create view</param>
-        /// <returns>New row to the Hotel table of the database</returns>
+        /// <returns>New entry to the Hotel table</returns>
         public async Task CreateHotel(Hotel hotel)
         {
             _context.Hotels.Add(hotel);
             await _context.SaveChangesAsync();
         }
-        
+
         /// <summary>
-        /// 
+        /// Selects a single Amenities entry to display for the Edit, Details, or Delete views
         /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
+        /// <param name="id">Selected hotel ID</param>
+        /// <returns>Selected hotel</returns>
         public async Task<Hotel> GetHotel(int id)
         {
             var hotels = await _context.Hotels.FirstOrDefaultAsync(hotel => hotel.ID == id);
@@ -42,6 +42,11 @@ namespace AsyncInn.Models.Services
             return hotels;
         }
 
+        /// <summary>
+        /// Displays all hotels to the Index view or, if a search string is passed to it, displays all entries that match the search criteria.
+        /// </summary>
+        /// <param name="searchHotels">Search criteria by name</param>
+        /// <returns>All or filtered hotels</returns>
         public async Task<IEnumerable<Hotel>> GetHotels(string searchHotels)
         {
             var hotels = from h in _context.Hotels
@@ -60,12 +65,22 @@ namespace AsyncInn.Models.Services
             return await hotels.ToListAsync();
         }
 
+        /// <summary>
+        /// Updates an existing Hotel entry with data from the Edit view form, verified by the controller
+        /// </summary>
+        /// <param name="hotel">Edited hotel data from form</param>
+        /// <returns>List of hotels with updated entry</returns>
         public async Task UpdateHotel(Hotel hotel)
         {
             _context.Hotels.Update(hotel);
             await _context.SaveChangesAsync();
         }
 
+        /// <summary>
+        /// Deletes a selected Hotel entry from the table, and also deletes any HotelRoom table entries with the same hotel ID.
+        /// </summary>
+        /// <param name="id">Selected hotel ID</param>
+        /// <returns>List of hotels minus the deleted one</returns>
         public async Task DeleteHotel(int id)
         {
             Hotel hotel = _context.Hotels.FirstOrDefault(h => h.ID == id);

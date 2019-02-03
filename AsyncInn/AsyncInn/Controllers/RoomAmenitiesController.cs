@@ -20,6 +20,10 @@ namespace AsyncInn.Controllers
         }
 
         // GET: RoomAmenities
+        /// <summary>
+        /// Gets all entries in the RoomAmenities table and displays them to the Index view.
+        /// </summary>
+        /// <returns></returns>
         public async Task<IActionResult> Index()
         {
             var asyncInnDbContext = _context.RoomAmenities.Include(r => r.Amenities).Include(r => r.Rooms);
@@ -27,6 +31,10 @@ namespace AsyncInn.Controllers
         }
 
         // GET: RoomAmenities/Create
+        /// <summary>
+        /// Displays the view allowing users to make a new RoomAmenites entry
+        /// </summary>
+        /// <returns></returns>
         public IActionResult Create()
         {
             ViewData["AmenitiesID"] = new SelectList(_context.Amenities, "ID", "Name");
@@ -37,6 +45,11 @@ namespace AsyncInn.Controllers
         // POST: RoomAmenities/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        /// <summary>
+        /// Sends the from information from the view form to the server and adds it to the RoomAmenities table
+        /// </summary>
+        /// <param name="roomAmenities">New RoomAmenities properties from the form</param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("AmenitiesID,RoomID")] RoomAmenities roomAmenities)
@@ -53,6 +66,12 @@ namespace AsyncInn.Controllers
         }
 
         // GET: RoomAmenities/Delete/5
+        /// <summary>
+        /// Displays a chosen RoomAmenities entry and prompts the user to decide to delete it from the table
+        /// </summary>
+        /// <param name="amenitiesId">Chosen amenity name</param>
+        /// <param name="roomId">Chosen room name</param>
+        /// <returns></returns>
         public async Task<IActionResult> Delete(int? amenitiesId, int? roomId)
         {
             if (amenitiesId == null || roomId == null)
@@ -73,6 +92,12 @@ namespace AsyncInn.Controllers
         }
 
         // POST: RoomAmenities/Delete/5
+        /// <summary>
+        /// Deletes the selected RoomAmenities entry from the table
+        /// </summary>
+        /// <param name="amenitiesId">Chosen amenity name</param>
+        /// <param name="roomId">Chosen room name</param>
+        /// <returns></returns>
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int? amenitiesId, int? roomId)
