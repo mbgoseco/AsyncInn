@@ -10,9 +10,10 @@ namespace AsyncInn.Models.Interfaces
         // Create Room
         Task CreateRoom(Room Room);
 
-        // Read Room
+        // Read Room and return specifc ones
         Task<Room> GetRoom(int id);
 
+        // Read all rooms
         Task<IEnumerable<Room>> GetRooms(string searchRooms);
 
         // Update Room

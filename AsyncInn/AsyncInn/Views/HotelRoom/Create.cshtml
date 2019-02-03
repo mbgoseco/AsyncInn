@@ -10,6 +10,12 @@
 
 <h4>Hotel Rooms</h4>
 <hr />
+@{ 
+    if (!ViewData["errorMsg"].Equals(""))
+    {
+        <p>@ViewData["errorMsg"]</p>
+    }
+}
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">

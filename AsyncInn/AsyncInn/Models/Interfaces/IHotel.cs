@@ -10,9 +10,10 @@ namespace AsyncInn.Models.Interfaces
         // Create Hotel
         Task CreateHotel(Hotel hotel);
 
-        // Read Hotel
+        // Read Hotel and return specific ones
         Task<Hotel> GetHotel(int id);
 
+        // Read all hotels
         Task<IEnumerable<Hotel>> GetHotels(string searchHotels);
 
         // Update Hotel

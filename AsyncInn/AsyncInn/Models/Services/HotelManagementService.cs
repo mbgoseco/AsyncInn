@@ -28,6 +28,11 @@ namespace AsyncInn.Models.Services
             await _context.SaveChangesAsync();
         }
         
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<Hotel> GetHotel(int id)
         {
             var hotels = await _context.Hotels.FirstOrDefaultAsync(hotel => hotel.ID == id);

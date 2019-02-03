@@ -46,8 +46,16 @@ namespace AsyncInn.Controllers
         }
 
         // GET: HotelRoom/Create
-        public IActionResult Create()
+        public IActionResult Create(bool isDuplicate)
         {
+            if (isDuplicate)
+            {
+                ViewData["errorMsg"] = "This room number already exists at this hotel.Please enter another.";
+            }
+            else
+            {
+                ViewData["errorMsg"] = "";
+            }
             ViewData["HotelID"] = new SelectList(_context.Hotels, "ID", "Name");
             ViewData["RoomID"] = new SelectList(_context.Rooms, "ID", "Name");
             return View();
@@ -62,9 +70,25 @@ namespace AsyncInn.Controllers
         {
             if (ModelState.IsValid)
             {
+                bool isDuplicate = false;
+
+                List<HotelRoom> existingHotel = await _context.HotelRooms.Where(n => n.HotelID == hotelRoom.HotelID).ToListAsync();
+
+                HotelRoom roomNum = existingHotel.FirstOrDefault(r => r.RoomNumberID == hotelRoom.RoomNumberID);
+
+                if (roomNum != null)
+                {
+                    isDuplicate = true;
+                    return RedirectToAction("Create", new { isDuplicate });
+                    
+                }
+                else
+                { 
+                ViewData["errorMsg"] = "";
                 _context.Add(hotelRoom);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
+                }
             }
 
             ViewData["RoomID"] = new SelectList(_context.Rooms, "ID", "Name", hotelRoom.RoomID);
