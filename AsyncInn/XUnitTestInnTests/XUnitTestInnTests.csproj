@@ -17,7 +17,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Amenities\" />
     <Folder Include="HotelRoom\" />
     <Folder Include="RoomAmenities\" />
     <Folder Include="Room\" />

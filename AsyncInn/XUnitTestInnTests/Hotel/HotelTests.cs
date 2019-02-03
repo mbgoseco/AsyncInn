@@ -92,7 +92,7 @@ namespace XUnitTestInnTests
         /// Read Tests
         /// </summary>
         [Fact]
-        public async void CanReadIndividual()
+        public async void CanReadIndividualHotel()
         {
             DbContextOptions<AsyncInnDbContext> options = new DbContextOptionsBuilder<AsyncInnDbContext>().UseInMemoryDatabase("ReadSingleHotel").Options;
 
@@ -114,9 +114,9 @@ namespace XUnitTestInnTests
         }
 
         [Fact]
-        public async void CannotReadMissingID()
+        public async void CannotReadMissingHotelID()
         {
-            DbContextOptions<AsyncInnDbContext> options = new DbContextOptionsBuilder<AsyncInnDbContext>().UseInMemoryDatabase("ReadMissingHotel").Options;
+            DbContextOptions<AsyncInnDbContext> options = new DbContextOptionsBuilder<AsyncInnDbContext>().UseInMemoryDatabase("CantReadMissingHotel").Options;
 
             using (AsyncInnDbContext context = new AsyncInnDbContext(options))
             {
