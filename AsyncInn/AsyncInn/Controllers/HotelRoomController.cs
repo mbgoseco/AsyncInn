@@ -225,8 +225,7 @@ namespace AsyncInn.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int roomNumberId, int hotelId)
         {
-            var hotelRoom = await _context.HotelRooms.Include(h => h.Hotel)
-                .Include(r => r.Room)
+            var hotelRoom = await _context.HotelRooms
                 .FirstOrDefaultAsync(hr => hr.RoomNumberID == roomNumberId && hr.HotelID == hotelId);
             _context.HotelRooms.Remove(hotelRoom);
             await _context.SaveChangesAsync();
