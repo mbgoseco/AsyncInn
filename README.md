@@ -35,6 +35,7 @@ RoomAmenities
 - 1/29/2019 - Dependency Injection implemented as a middleware repository between the database and the web app for Hotels, Rooms, and Amenities. CRUD operations for HotelRooms and RoomAmenities tables fixed.
 - 1/30/2019 - Search bar and total asset count added to Hotels, Rooms, and Amenities databases.
 - 2/1/2019 - HotelRooms table properly displays name of each room type. Tables now display more user friendly information.
+- 2/3/2019 - Deleting hotels also deletes associated hotel room entries, and deleting rooms also deletes related hotel room entries and room amenites entries.
 
 ## Directions
 Users will be redirected to the hotel database home page. From there, a navigation bar directs you to the different database tables that you can access. Each link begins with a view of the entire table with options to create, edit, delete, or view details of each entry.
