@@ -103,8 +103,6 @@ namespace AsyncInn.Controllers
         public async Task<IActionResult> DeleteConfirmed(int? amenitiesId, int? roomId)
         {
             var roomAmenities = await _context.RoomAmenities
-                .Include(r => r.Amenities)
-                .Include(r => r.Rooms)
                 .FirstOrDefaultAsync(m => m.AmenitiesID == amenitiesId && m.RoomID == roomId);
             _context.RoomAmenities.Remove(roomAmenities);
             await _context.SaveChangesAsync();

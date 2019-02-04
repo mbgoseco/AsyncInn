@@ -16,8 +16,4 @@
     <ProjectReference Include="..\AsyncInn\AsyncInn.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="RoomAmenities\" />
-  </ItemGroup>
-
 </Project>
