@@ -58,7 +58,7 @@ p, h1 {
 }
 
 #layout > div {
-    height: 50vh;
+    height: 36vh;
 }
 
 p > a {
@@ -79,7 +79,7 @@ form > a {
 
 div > a {
     position: relative;
-    top: 4vh;
+    top: 29vh;
     color: white;
     text-decoration: none;
     border: 0.3vw outset gray;
