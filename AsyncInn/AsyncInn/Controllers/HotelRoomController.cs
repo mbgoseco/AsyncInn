@@ -20,6 +20,10 @@ namespace AsyncInn.Controllers
         }
 
         // GET: HotelRoom
+        /// <summary>
+        /// Gets all entries in the HotelRooms table and displays them to the Index view.
+        /// </summary>
+        /// <returns></returns>
         public async Task<IActionResult> Index()
         {
             var asyncInnDbContext = _context.HotelRooms.Include(h => h.Hotel).Include(r =>  r.Room);
@@ -27,16 +31,22 @@ namespace AsyncInn.Controllers
         }
 
         // GET: HotelRoom/Details/5
-        public async Task<IActionResult> Details(decimal? roomId, int? hotelId)
+        /// <summary>
+        /// Displays a single selected row in the HotelRooms table
+        /// </summary>
+        /// <param name="roomNumberId">Room number</param>
+        /// <param name="hotelId">Hotel name</param>
+        /// <returns></returns>
+        public async Task<IActionResult> Details(int? roomNumberId, int? hotelId)
         {
-            if (hotelId == null || roomId == null)
+            if (hotelId == null || roomNumberId == null)
             {
                 return NotFound();
             }
 
             var hotelRoom = await _context.HotelRooms.Include(h => h.Hotel)
                 .Include(r => r.Room)
-                .FirstOrDefaultAsync(hr => hr.RoomID == roomId && hr.HotelID == hotelId);
+                .FirstOrDefaultAsync(hr => hr.RoomNumberID == roomNumberId && hr.HotelID == hotelId);
             if (hotelRoom == null)
             {
                 return NotFound();
@@ -46,40 +56,87 @@ namespace AsyncInn.Controllers
         }
 
         // GET: HotelRoom/Create
-        public IActionResult Create()
+        /// <summary>
+        /// Displays the view allowing a user to enter a new HotelRoom
+        /// </summary>
+        /// <param name="isDuplicate">Conditional param returning a message if the user entered a duplicate room number and hotel combo.</param>
+        /// <returns></returns>
+        public IActionResult Create(bool isDuplicate)
         {
+            if (isDuplicate)
+            {
+                ViewData["errorMsg"] = "This room number already exists at this hotel. Please enter another.";
+            }
+            else
+            {
+                ViewData["errorMsg"] = "";
+            }
             ViewData["HotelID"] = new SelectList(_context.Hotels, "ID", "Name");
+            ViewData["RoomID"] = new SelectList(_context.Rooms, "ID", "Name");
             return View();
         }
 
         // POST: HotelRoom/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        /// <summary>
+        /// Sends the from information from the view to the server and checks if the hotel and room are duplicates, then passes it to EF to add to the HotelRoom table.
+        /// </summary>
+        /// <param name="hotelRoom">HotelRoom properties from the form</param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("HotelID,RoomNumberID,RoomID,Rate,PetFriendly")] HotelRoom hotelRoom)
         {
             if (ModelState.IsValid)
             {
+                bool isDuplicate = false;
+
+                if (HotelRoomExists(hotelRoom.RoomNumberID, hotelRoom.HotelID))
+                {
+                    isDuplicate = true;
+                    return RedirectToAction("Create", new { isDuplicate });
+                }
+                else
+                { 
+                ViewData["errorMsg"] = "";
                 _context.Add(hotelRoom);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
+                }
             }
+
+            ViewData["RoomID"] = new SelectList(_context.Rooms, "ID", "Name", hotelRoom.RoomID);
             ViewData["HotelID"] = new SelectList(_context.Hotels, "ID", "Name", hotelRoom.HotelID);
             return View(hotelRoom);
         }
 
         // GET: HotelRoom/Edit/5
-        public async Task<IActionResult> Edit(decimal? roomId, int? hotelId)
+        /// <summary>
+        /// Displays a selected HotelRoom entry for editing
+        /// </summary>
+        /// <param name="roomNumberId">Room number</param>
+        /// <param name="hotelId">Hotel name</param>
+        /// <param name="isDuplicate">Conditional param returning a message if the user entered a duplicate room number and hotel combo.</param>
+        /// <returns></returns>
+        public async Task<IActionResult> Edit(int? roomNumberId, int? hotelId, bool isDuplicate)
         {
-            if (roomId == null || hotelId == null)
+            if (isDuplicate)
+            {
+                ViewData["errorMsg"] = "This room number already exists at this hotel. Please enter another.";
+            }
+            else
+            {
+                ViewData["errorMsg"] = "";
+            }
+
+            if (roomNumberId == null || hotelId == null)
             {
                 return NotFound();
             }
 
-            var hotelRoom = await _context.HotelRooms.Include(h => h.Hotel)
-                .Include(r => r.Room)
-                .FirstOrDefaultAsync(hr => hr.RoomID == roomId && hr.HotelID == hotelId);
+            var hotelRoom = await _context.HotelRooms
+                .FirstOrDefaultAsync(hr => hr.RoomNumberID == roomNumberId && hr.HotelID == hotelId);
             if (hotelRoom == null)
             {
                 return NotFound();
@@ -92,17 +149,22 @@ namespace AsyncInn.Controllers
         // POST: HotelRoom/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        /// <summary>
+        /// Sends the from information from the view to the server and checks if the hotel and room are duplicates, then passes it to EF to update the selected HotelRoom entry.
+        /// </summary>
+        /// <param name="roomNumberId">Room number</param>
+        /// <param name="hotelId">Hotel name</param>
+        /// <param name="hotelRoom">Edited hotel room properties from the form</param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(decimal roomId, int hotelId, [Bind("HotelID,RoomNumberID,RoomID,Rate,PetFriendly")] HotelRoom hotelRoom)
+        public async Task<IActionResult> Edit(int roomNumberId, int hotelId, [Bind("HotelID,RoomNumberID,RoomID,Rate,PetFriendly")] HotelRoom hotelRoom)
         {
-            if (hotelId != hotelRoom.HotelID || roomId != hotelRoom.RoomID)
-            {
-                return NotFound();
-            }
 
             if (ModelState.IsValid)
             {
+                bool isDuplicate = false;
+
                 try
                 {
                     _context.Update(hotelRoom);
@@ -110,9 +172,10 @@ namespace AsyncInn.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!HotelRoomExists(hotelRoom.RoomID, hotelRoom.HotelID))
+                    if (HotelRoomExists(hotelRoom.RoomNumberID, hotelRoom.HotelID))
                     {
-                        return NotFound();
+                        isDuplicate = true;
+                        return RedirectToAction("Edit", new { isDuplicate });
                     }
                     else
                     {
@@ -127,16 +190,22 @@ namespace AsyncInn.Controllers
         }
 
         // GET: HotelRoom/Delete/5
-        public async Task<IActionResult> Delete(decimal? roomId, int? hotelId)
+        /// <summary>
+        /// Displays a chosen HotelRoom entry and prompts the user to decide to delete it from the table
+        /// </summary>
+        /// <param name="roomNumberId">Selected room number</param>
+        /// <param name="hotelId">Selected hotel name</param>
+        /// <returns></returns>
+        public async Task<IActionResult> Delete(int? roomNumberId, int? hotelId)
         {
-            if (roomId == null || hotelId == null)
+            if (roomNumberId == null || hotelId == null)
             {
                 return NotFound();
             }
 
             var hotelRoom = await _context.HotelRooms.Include(h => h.Hotel)
                 .Include(r => r.Room)
-                .FirstOrDefaultAsync(hr => hr.RoomID == roomId && hr.HotelID == hotelId);
+                .FirstOrDefaultAsync(hr => hr.RoomNumberID == roomNumberId && hr.HotelID == hotelId);
             if (hotelRoom == null)
             {
                 return NotFound();
@@ -146,21 +215,26 @@ namespace AsyncInn.Controllers
         }
 
         // POST: HotelRoom/Delete/5
+        /// <summary>
+        /// Deletes the selected HotelRoom entry from the table
+        /// </summary>
+        /// <param name="roomNumberId">Selected room number</param>
+        /// <param name="hotelId">Selected hotel name</param>
+        /// <returns></returns>
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(decimal roomId, int hotelId)
+        public async Task<IActionResult> DeleteConfirmed(int roomNumberId, int hotelId)
         {
-            var hotelRoom = await _context.HotelRooms.Include(h => h.Hotel)
-                .Include(r => r.Room)
-                .FirstOrDefaultAsync(hr => hr.RoomID == roomId && hr.HotelID == hotelId);
+            var hotelRoom = await _context.HotelRooms
+                .FirstOrDefaultAsync(hr => hr.RoomNumberID == roomNumberId && hr.HotelID == hotelId);
             _context.HotelRooms.Remove(hotelRoom);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool HotelRoomExists(decimal roomId, int hotelId)
+        private bool HotelRoomExists(int roomNumberId, int hotelId)
         {
-            return _context.HotelRooms.Any(e => e.HotelID == hotelId && e.RoomID == roomId);
+            return _context.HotelRooms.Any(e => e.HotelID == hotelId && e.RoomNumberID == roomNumberId);
         }
     }
 }

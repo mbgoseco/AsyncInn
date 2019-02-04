@@ -8,8 +8,14 @@
 
 <h1>Edit</h1>
 
-<h4>HotelRoom</h4>
+<h4>Hotel Rooms</h4>
 <hr />
+@{
+    if (!ViewData["errorMsg"].Equals(""))
+    {
+        <p>@ViewData["errorMsg"]</p>
+    }
+}
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Edit">
@@ -17,18 +23,18 @@
             <input type="hidden" asp-for="HotelID" />
             <input type="hidden" asp-for="RoomNumberID" />
             <div class="form-group">
-                <label asp-for="RoomID" class="control-label"></label>
-                <input asp-for="RoomID" class="form-control" />
+                <label asp-for="RoomID" class="control-label">Room Name</label>
+                <select asp-for="RoomID" class="form-control" asp-items="ViewBag.RoomID"></select>
                 <span asp-validation-for="RoomID" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Rate" class="control-label"></label>
-                <input asp-for="Rate" class="form-control" />
+                <input asp-for="Rate" class="form-control" required />
                 <span asp-validation-for="Rate" class="text-danger"></span>
             </div>
             <div class="form-group form-check">
                 <label class="form-check-label">
-                    <input class="form-check-input" asp-for="PetFriendly" /> @Html.DisplayNameFor(model => model.PetFriendly)
+                    <input class="form-check-input" asp-for="PetFriendly" /> Pet Friendly
                 </label>
             </div>
             <div class="form-group">

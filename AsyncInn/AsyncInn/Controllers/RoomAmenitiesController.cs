@@ -20,33 +20,21 @@ namespace AsyncInn.Controllers
         }
 
         // GET: RoomAmenities
+        /// <summary>
+        /// Gets all entries in the RoomAmenities table and displays them to the Index view.
+        /// </summary>
+        /// <returns></returns>
         public async Task<IActionResult> Index()
         {
             var asyncInnDbContext = _context.RoomAmenities.Include(r => r.Amenities).Include(r => r.Rooms);
             return View(await asyncInnDbContext.ToListAsync());
         }
 
-        // GET: RoomAmenities/Details/5
-        public async Task<IActionResult> Details(int? amenitiesId, int? roomId)
-        {
-            if (amenitiesId == null || roomId == null)
-            {
-                return NotFound();
-            }
-
-            var roomAmenities = await _context.RoomAmenities
-                .Include(r => r.Amenities)
-                .Include(r => r.Rooms)
-                .FirstOrDefaultAsync(m => m.AmenitiesID == amenitiesId && m.RoomID == roomId);
-            if (roomAmenities == null)
-            {
-                return NotFound();
-            }
-
-            return View(roomAmenities);
-        }
-
         // GET: RoomAmenities/Create
+        /// <summary>
+        /// Displays the view allowing users to make a new RoomAmenites entry
+        /// </summary>
+        /// <returns></returns>
         public IActionResult Create()
         {
             ViewData["AmenitiesID"] = new SelectList(_context.Amenities, "ID", "Name");
@@ -57,6 +45,11 @@ namespace AsyncInn.Controllers
         // POST: RoomAmenities/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        /// <summary>
+        /// Sends the from information from the view form to the server and adds it to the RoomAmenities table
+        /// </summary>
+        /// <param name="roomAmenities">New RoomAmenities properties from the form</param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("AmenitiesID,RoomID")] RoomAmenities roomAmenities)
@@ -72,65 +65,13 @@ namespace AsyncInn.Controllers
             return View(roomAmenities);
         }
 
-        // GET: RoomAmenities/Edit/5
-        public async Task<IActionResult> Edit(int? amenitiesId, int? roomId)
-        {
-            if (amenitiesId == null || roomId == null)
-            {
-                return NotFound();
-            }
-
-            var roomAmenities = await _context.RoomAmenities
-                .Include(r => r.Amenities)
-                .Include(r => r.Rooms)
-                .FirstOrDefaultAsync(m => m.AmenitiesID == amenitiesId && m.RoomID == roomId);
-            if (roomAmenities == null)
-            {
-                return NotFound();
-            }
-            ViewData["AmenitiesID"] = new SelectList(_context.Amenities, "ID", "Name", roomAmenities.AmenitiesID);
-            ViewData["RoomID"] = new SelectList(_context.Rooms, "ID", "Name", roomAmenities.RoomID);
-            return View(roomAmenities);
-        }
-
-        // POST: RoomAmenities/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int amenitiesId, int roomId, [Bind("AmenitiesID,RoomID")] RoomAmenities roomAmenities)
-        {
-            if (amenitiesId != roomAmenities.AmenitiesID || roomId != roomAmenities.RoomID)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(roomAmenities);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!RoomAmenitiesExists(roomAmenities.AmenitiesID, roomAmenities.RoomID))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["AmenitiesID"] = new SelectList(_context.Amenities, "ID", "Name", roomAmenities.AmenitiesID);
-            ViewData["RoomID"] = new SelectList(_context.Rooms, "ID", "Name", roomAmenities.RoomID);
-            return View(roomAmenities);
-        }
-
         // GET: RoomAmenities/Delete/5
+        /// <summary>
+        /// Displays a chosen RoomAmenities entry and prompts the user to decide to delete it from the table
+        /// </summary>
+        /// <param name="amenitiesId">Chosen amenity name</param>
+        /// <param name="roomId">Chosen room name</param>
+        /// <returns></returns>
         public async Task<IActionResult> Delete(int? amenitiesId, int? roomId)
         {
             if (amenitiesId == null || roomId == null)
@@ -151,13 +92,17 @@ namespace AsyncInn.Controllers
         }
 
         // POST: RoomAmenities/Delete/5
+        /// <summary>
+        /// Deletes the selected RoomAmenities entry from the table
+        /// </summary>
+        /// <param name="amenitiesId">Chosen amenity name</param>
+        /// <param name="roomId">Chosen room name</param>
+        /// <returns></returns>
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int? amenitiesId, int? roomId)
         {
             var roomAmenities = await _context.RoomAmenities
-                .Include(r => r.Amenities)
-                .Include(r => r.Rooms)
                 .FirstOrDefaultAsync(m => m.AmenitiesID == amenitiesId && m.RoomID == roomId);
             _context.RoomAmenities.Remove(roomAmenities);
             await _context.SaveChangesAsync();

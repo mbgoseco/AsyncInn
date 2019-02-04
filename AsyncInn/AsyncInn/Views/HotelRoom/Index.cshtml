@@ -15,16 +15,19 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.RoomID)
+                Room Name
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Rate)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.PetFriendly)
+                Pet Friendly
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Hotel)
+            </th>
+            <th>
+                Room Number
             </th>
             <th></th>
         </tr>
@@ -33,10 +36,10 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.RoomID)
+                @Html.DisplayFor(modelItem => item.Room.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Rate)
+                $ @Html.DisplayFor(modelItem => item.Rate)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.PetFriendly)
@@ -45,9 +48,12 @@
                 @Html.DisplayFor(modelItem => item.Hotel.Name)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { item.RoomID, item.HotelID }) |
-                @Html.ActionLink("Details", "Details", new { item.RoomID, item.HotelID }) |
-                @Html.ActionLink("Delete", "Delete", new { item.RoomID, item.HotelID })
+                @Html.DisplayFor(modelItem => item.RoomNumberID)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { item.RoomNumberID, item.HotelID }) |
+                @Html.ActionLink("Details", "Details", new { item.RoomNumberID, item.HotelID }) |
+                @Html.ActionLink("Delete", "Delete", new { item.RoomNumberID, item.HotelID })
             </td>
         </tr>
 }

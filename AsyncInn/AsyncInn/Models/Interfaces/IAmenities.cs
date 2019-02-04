@@ -10,9 +10,10 @@ namespace AsyncInn.Models.Interfaces
         // Create Amenities
         Task CreateAmenities(Amenities Amenities);
 
-        // Read Amenities
+        // Read Amenities and return specific ones
         Task<Amenities> GetAmenities(int id);
 
+        // Read all amenities
         Task<IEnumerable<Amenities>> GetAmenities(string searchAmenities);
 
         // Update Amenities
