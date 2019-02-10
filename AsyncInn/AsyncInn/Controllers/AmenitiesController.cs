@@ -21,6 +21,11 @@ namespace AsyncInn.Controllers
         }
 
         // GET: Amenities
+        /// <summary>
+        /// Calls
+        /// </summary>
+        /// <param name="searchAmenities"></param>
+        /// <returns></returns>
         public async Task<IActionResult> Index(string searchAmenities)
         {
             return View(await _context.GetAmenities(searchAmenities));
