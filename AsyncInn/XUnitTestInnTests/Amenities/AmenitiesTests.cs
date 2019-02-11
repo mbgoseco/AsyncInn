@@ -143,18 +143,18 @@ namespace XUnitTestInnTests
                 WiFi.Name = "Wi-Fi";
 
                 AmenitiesManagementService amenitiesService = new AmenitiesManagementService(context);
-                await context.AddAsync(hotTub);
-                await context.AddAsync(miniBar);
-                await context.AddAsync(WiFi);
-                IEnumerable<Amenities> result = await amenitiesService.GetAmenities("");
-
-                int counter = 0;
-                Amenities[] amenities = { hotTub, miniBar, WiFi };
-                foreach (Amenities item in result)
+                await amenitiesService.CreateAmenities(hotTub);
+                await amenitiesService.CreateAmenities(miniBar);
+                await amenitiesService.CreateAmenities(WiFi);
+                string filter = "";
+                IEnumerable<Amenities> result = await amenitiesService.GetAmenities(filter);
+                List<Amenities> list = new List<Amenities>();
+                foreach(Amenities item in result)
                 {
-                    Assert.Equal(item.ID, amenities[counter].ID);
-                    counter++;
+                    list.Add(item);
                 }
+
+                Assert.Equal(3, list.Count);
             }
         }
 
@@ -178,15 +178,17 @@ namespace XUnitTestInnTests
                 WiFi.Name = "Wi-Fi";
 
                 AmenitiesManagementService amenitiesService = new AmenitiesManagementService(context);
-                await context.AddAsync(hotTub);
-                await context.AddAsync(miniBar);
-                await context.AddAsync(WiFi);
+                await amenitiesService.CreateAmenities(hotTub);
+                await amenitiesService.CreateAmenities(miniBar);
+                await amenitiesService.CreateAmenities(WiFi);
                 IEnumerable<Amenities> result = await amenitiesService.GetAmenities("Wi-Fi");
-
+                Amenities match = new Amenities();
                 foreach (Amenities item in result)
                 {
-                    Assert.Equal(WiFi, item);
+                    match = item;
                 }
+
+                Assert.Equal(WiFi, match);
             }
         }
 

@@ -28,10 +28,29 @@ namespace XUnitTestInnTests
         }
 
         [Fact]
+        public void CanSetAmenitiesID()
+        {
+            RoomAmenities rAmen = new RoomAmenities();
+            rAmen.AmenitiesID = 1;
+            rAmen.AmenitiesID = 2;
+
+            Assert.Equal(2, rAmen.AmenitiesID);
+        }
+
+        [Fact]
+        public void CanGetRoomID()
+        {
+            RoomAmenities rAmen = new RoomAmenities();
+            rAmen.RoomID = 1;
+
+            Assert.Equal(1, rAmen.RoomID);
+        }
+
+        [Fact]
         public void CanSetRoomID()
         {
             RoomAmenities rAmen = new RoomAmenities();
-            rAmen.RoomID = 3;
+            rAmen.RoomID = 1;
             rAmen.RoomID = 2;
 
             Assert.Equal(2, rAmen.RoomID);

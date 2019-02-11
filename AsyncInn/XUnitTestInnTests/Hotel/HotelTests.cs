@@ -33,14 +33,41 @@ namespace XUnitTestInnTests
         }
 
         [Fact]
-        public void CannotSetPhoneNumberAsLong()
+        public void CanGetAddressOfHotel()
         {
             Hotel hotel = new Hotel();
-            hotel.Phone = "123-456-7890";
+            hotel.Address = "123 Main St";
 
-            long newNumber = 5558675309;
+            Assert.Equal("123 Main St", hotel.Address);
+        }
 
-            Assert.IsNotType<string>(newNumber);
+        [Fact]
+        public void CanSetAddressOfHotel()
+        {
+            Hotel hotel = new Hotel();
+            hotel.Address = "123 Main St";
+            hotel.Address = "345 Beach Rd";
+
+            Assert.Equal("345 Beach Rd", hotel.Address);
+        }
+
+        [Fact]
+        public void CanGetPhoneOfHotel()
+        {
+            Hotel hotel = new Hotel();
+            hotel.Phone = "111-111-1111";
+
+            Assert.Equal("111-111-1111", hotel.Phone);
+        }
+
+        [Fact]
+        public void CanSetPhoneOfHotel()
+        {
+            Hotel hotel = new Hotel();
+            hotel.Phone = "222-222-2222";
+            hotel.Phone = "555-867-5309";
+
+            Assert.Equal("555-867-5309", hotel.Phone);
         }
 
         /// <summary>
@@ -166,18 +193,17 @@ namespace XUnitTestInnTests
                 motel.Phone = "555-555-5555";
 
                 HotelManagementService hotelService = new HotelManagementService(context);
-                await context.AddAsync(inn);
-                await context.AddAsync(bnb);
-                await context.AddAsync(motel);
+                await hotelService.CreateHotel(inn);
+                await hotelService.CreateHotel(bnb);
+                await hotelService.CreateHotel(motel);
                 IEnumerable<Hotel> result = await hotelService.GetHotels("");
-
-                int counter = 0;
-                Hotel[] hotels = { inn, bnb, motel };
+                List<Hotel> list = new List<Hotel>();
                 foreach (Hotel item in result)
                 {
-                    Assert.Equal(item.ID, hotels[counter].ID);
-                    counter++;
+                    list.Add(item);
                 }
+
+                Assert.Equal(3, list.Count);
             }
         }
 
@@ -207,15 +233,17 @@ namespace XUnitTestInnTests
                 motel.Phone = "555-555-5555";
 
                 HotelManagementService hotelService = new HotelManagementService(context);
-                await context.AddAsync(inn);
-                await context.AddAsync(bnb);
-                await context.AddAsync(motel);
+                await hotelService.CreateHotel(inn);
+                await hotelService.CreateHotel(bnb);
+                await hotelService.CreateHotel(motel);
                 IEnumerable<Hotel> result = await hotelService.GetHotels("Motel");
-
+                Hotel match = new Hotel();
                 foreach (Hotel item in result)
                 {
-                    Assert.Equal("Async Motel", item.Name);
+                    match = item;
                 }
+
+                Assert.Equal(motel, match);
             }
         }
 

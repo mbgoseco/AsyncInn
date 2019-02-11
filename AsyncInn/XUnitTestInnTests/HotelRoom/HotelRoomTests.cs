@@ -28,9 +28,86 @@ namespace XUnitTestInnTests
         }
 
         [Fact]
-        public void CanSetPetFriendlinessOfHotelRoom()
+        public void CanSetRateOfHotelRoom()
         {
             HotelRoom hRoom = new HotelRoom();
+            hRoom.Rate = 49.99M;
+            hRoom.Rate = 75.00M;
+
+            Assert.Equal(75.00M, hRoom.Rate);
+        }
+
+        [Fact]
+        public void CanGetHotelIDOfHotelRoom()
+        {
+            HotelRoom hRoom = new HotelRoom();
+            hRoom.HotelID = 1;
+
+            Assert.Equal(1, hRoom.HotelID);
+        }
+
+        [Fact]
+        public void CanSetHotelIDOfHotelRoom()
+        {
+            HotelRoom hRoom = new HotelRoom();
+            hRoom.HotelID = 1;
+            hRoom.HotelID = 2;
+
+            Assert.Equal(2, hRoom.HotelID);
+        }
+
+        [Fact]
+        public void CanGetRoomNumberIDOfHotelRoom()
+        {
+            HotelRoom hRoom = new HotelRoom();
+            hRoom.RoomNumberID = 123;
+
+            Assert.Equal(123, hRoom.RoomNumberID);
+        }
+
+        [Fact]
+        public void CanSetRoomNumberIDOfHotelRoom()
+        {
+            HotelRoom hRoom = new HotelRoom();
+            hRoom.RoomNumberID = 123;
+            hRoom.RoomNumberID = 456;
+
+            Assert.Equal(456, hRoom.RoomNumberID);
+        }
+
+        [Fact]
+        public void CanGetRoomIDOfHotelRoom()
+        {
+            HotelRoom hRoom = new HotelRoom();
+            hRoom.RoomID = 1;
+
+            Assert.Equal(1, hRoom.RoomID);
+        }
+
+        [Fact]
+        public void CanSetRoomIDOfHotelRoom()
+        {
+            HotelRoom hRoom = new HotelRoom();
+            hRoom.RoomID = 1;
+            hRoom.RoomID = 2;
+
+            Assert.Equal(2, hRoom.RoomID);
+        }
+
+        [Fact]
+        public void CanGetPetFriendlyOfHotelRoom()
+        {
+            HotelRoom hRoom = new HotelRoom();
+            hRoom.PetFriendly = false;
+
+            Assert.False(hRoom.PetFriendly);
+        }
+
+        [Fact]
+        public void CanSetPetFriendlyOfHotelRoom()
+        {
+            HotelRoom hRoom = new HotelRoom();
+            hRoom.PetFriendly = false;
             hRoom.PetFriendly = true;
 
             Assert.True(hRoom.PetFriendly);
