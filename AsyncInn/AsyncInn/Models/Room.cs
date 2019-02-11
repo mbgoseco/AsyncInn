@@ -9,6 +9,7 @@ namespace AsyncInn.Models
     public class Room
     {
         public int ID { get; set; }
+        [Required]
         public string Name { get; set; }
         public Layouts Layout { get; set; }
 
