@@ -139,7 +139,7 @@ namespace AsyncInn.Controllers
         /// Takes user to the Delete view with a selected amenity, asking the user if they want to delete it from the table.
         /// </summary>
         /// <param name="id">Primary Key of selected amenity</param>
-        /// <returns></returns>
+        /// <returns>Delete view of amenity selected for deletion</returns>
         public async Task<IActionResult> Delete(int id)
         {
             var amenities = await _context.GetAmenities(id);
