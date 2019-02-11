@@ -33,6 +33,25 @@ namespace XUnitTestInnTests
             Assert.Equal("Beef Supreme", room.Name);
         }
 
+        [Fact]
+        public void CanGetLayoutOfRoom()
+        {
+            Room room = new Room();
+            room.Layout = Layouts.Studio;
+
+            Assert.Equal(Layouts.Studio, room.Layout);
+        }
+
+        [Fact]
+        public void CanSetLayoutOfRoom()
+        {
+            Room room = new Room();
+            room.Layout = Layouts.Studio;
+            room.Layout = Layouts.TwoBedroom;
+
+            Assert.Equal(Layouts.TwoBedroom, room.Layout);
+        }
+
         /// <summary>
         /// Create Tests
         /// </summary>
@@ -148,18 +167,17 @@ namespace XUnitTestInnTests
                 supreme.Layout = Layouts.TwoBedroom;
 
                 RoomManagementService roomService = new RoomManagementService(context);
-                await context.AddAsync(mini);
-                await context.AddAsync(single);
-                await context.AddAsync(supreme);
+                await roomService.CreateRoom(mini);
+                await roomService.CreateRoom(single);
+                await roomService.CreateRoom(supreme);
                 IEnumerable<Room> result = await roomService.GetRooms("");
-
-                int counter = 0;
-                Room[] room = { mini, single, supreme };
+                List<Room> list = new List<Room>();
                 foreach (Room item in result)
                 {
-                    Assert.Equal(item.ID, room[counter].ID);
-                    counter++;
+                    list.Add(item);
                 }
+
+                Assert.Equal(3, list.Count);
             }
         }
 
@@ -186,15 +204,17 @@ namespace XUnitTestInnTests
                 supreme.Layout = Layouts.TwoBedroom;
 
                 RoomManagementService roomService = new RoomManagementService(context);
-                await context.AddAsync(mini);
-                await context.AddAsync(single);
-                await context.AddAsync(supreme);
+                await roomService.CreateRoom(mini);
+                await roomService.CreateRoom(single);
+                await roomService.CreateRoom(supreme);
                 IEnumerable<Room> result = await roomService.GetRooms("Supreme");
-                
+                Room match = new Room();
                 foreach (Room item in result)
                 {
-                    Assert.Equal(item, supreme);
+                    match = item;
                 }
+
+                Assert.Equal(supreme, match);
             }
         }
 
