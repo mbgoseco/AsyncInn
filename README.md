@@ -1,5 +1,7 @@
 # AsyncInn
-Welcome to the Async Inn! This is a work in progress of a front and back end hotel managment system, using ASP.NET Core and Entity Framework. It allows a hotel admin to access the hotel's database to view and change data regarding hotels, rooms, room layouts, room amenities, and types of amenities.
+Deployment URL: https://asyncinn-mbg.azurewebsites.net/
+
+Welcome to the Async Inn! This is a complete front and back end hotel managment system, using ASP.NET Core, Entity Framework, and SQL database. It allows a hotel admin to access the hotel's database to view and change data regarding hotels, rooms, room layouts, room amenities, and types of amenities.
 
 ## Database
 ![schema](https://github.com/mbgoseco/AsyncInn/blob/master/assets/SchemaAsyncInn.png)
